@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: h2
+  - changeSet:
+      id: KTT-001-202302092015
+      author: wvolfff
+      comment: Create initial DB structure
+      changes:
+        - sqlFile:
+            path: 1.0/KTT-001-202302092015.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: KTT-001-202302111319
+      author: wvolfff
+      comment: Add quotes_with_votes view, refactor vote column in votes table, change login/password sizes
+      changes:
+        - sqlFile:
+            path: 1.0/KTT-001-202302111319.sql
+            relativeToChangelogFile: true

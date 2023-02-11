@@ -1,0 +1,7 @@
+services:
+  ya_disk:
+    container_name: kameleoon_trial_task
+    image: wvolfff/kameleoon-trial
+    restart: on-failure
+    ports:
+      - "8080:8080"
