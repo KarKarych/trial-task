@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = LoginDoesNotExistValidator.class)
 public @interface LoginDoesNotExist {
 
-  String message() default "login";
+  String message() default "login already exists";
 
   Class<? extends Payload>[] payload() default {};
 

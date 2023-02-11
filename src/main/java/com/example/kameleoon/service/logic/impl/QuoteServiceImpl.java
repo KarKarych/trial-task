@@ -81,9 +81,9 @@ public class QuoteServiceImpl implements QuoteService {
 
     return new PageDto<>(
       quotes.getContent(),
-      quotes.getTotalPages(),
       pageNumber,
-      pageSize
+      pageSize,
+      quotes.getTotalPages()
     );
   }
 
