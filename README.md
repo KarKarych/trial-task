@@ -6,6 +6,7 @@ API allow:
 - Updating and deleting an authorized user
 - Get top 10 quotes
 - Get flop 10 quotes
+- Get random quote
 - Get last quotes with pagination
 - Get last user quotes with pagination by an authorized user
 - Save, update, delete quote by an authorized user
