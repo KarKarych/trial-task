@@ -7,14 +7,15 @@ import com.example.kameleoon.service.validation.group.NotFoundGroup;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.UUID;
-
+@Validated({Default.class, NotFoundGroup.class})
 public interface UserService {
 
   UserDto updateUser(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId,
     @NotNull
     @Valid
@@ -23,7 +24,7 @@ public interface UserService {
 
   void deleteUser(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId
   );
 }

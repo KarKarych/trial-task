@@ -14,12 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
 @Service
-@Validated
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 

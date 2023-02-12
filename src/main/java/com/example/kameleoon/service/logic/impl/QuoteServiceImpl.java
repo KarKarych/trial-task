@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,6 @@ import static org.springframework.data.domain.Pageable.ofSize;
 
 
 @Service
-@Validated
 @RequiredArgsConstructor
 public class QuoteServiceImpl implements QuoteService {
 

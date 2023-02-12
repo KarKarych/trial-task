@@ -9,10 +9,12 @@ import com.example.kameleoon.service.validation.group.NotFoundGroup;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.UUID;
 
+@Validated({Default.class, NotFoundGroup.class})
 public interface QuoteService {
 
   QuoteDto getRandomQuote();
@@ -30,7 +32,7 @@ public interface QuoteService {
 
   PageDto<QuoteDto> getLastQuotesByUser(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId,
     @NotNull
     Integer pageNumber,
@@ -40,7 +42,7 @@ public interface QuoteService {
 
   QuoteDto saveQuote(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId,
     @Valid
     QuoteInputDto quoteInputDto
@@ -48,10 +50,10 @@ public interface QuoteService {
 
   QuoteDto updateQuote(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId,
     @NotNull
-    @QuoteIdExists(groups = {Default.class, NotFoundGroup.class})
+    @QuoteIdExists(groups = NotFoundGroup.class)
     UUID quoteId,
     @Valid
     QuoteInputDto quoteInputDto
@@ -59,10 +61,10 @@ public interface QuoteService {
 
   void deleteQuote(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId,
     @NotNull
-    @QuoteIdExists(groups = {Default.class, NotFoundGroup.class})
+    @QuoteIdExists(groups = NotFoundGroup.class)
     UUID quoteId
   );
 }

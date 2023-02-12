@@ -7,17 +7,19 @@ import com.example.kameleoon.service.validation.group.NotFoundGroup;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.UUID;
 
+@Validated({Default.class, NotFoundGroup.class})
 public interface VoteService {
 
   void addVote(
     @NotNull
-    @UserIdExists(groups = {Default.class, NotFoundGroup.class})
+    @UserIdExists(groups = NotFoundGroup.class)
     UUID userId,
     @NotNull
-    @QuoteIdExists(groups = {Default.class, NotFoundGroup.class})
+    @QuoteIdExists(groups = NotFoundGroup.class)
     UUID quoteId,
     @Valid
     VoteDto voteDto
