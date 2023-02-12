@@ -18,7 +18,7 @@ public class SecurityService {
     if (principal instanceof User user) {
       return user.getId();
     } else {
-      throw new ApiException("Unauthorized access, invalid credentials", HttpStatus.FORBIDDEN);
+      throw new ApiException("Unauthorized access, invalid credentials", HttpStatus.UNAUTHORIZED);
     }
   }
 }

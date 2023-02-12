@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface VoteRepository extends JpaRepository<Vote, VoteId> {
@@ -22,10 +21,4 @@ public interface VoteRepository extends JpaRepository<Vote, VoteId> {
       order by v.date
     """)
   List<QuoteChartElement> getVotesChart(UUID quoteId);
-
-  Optional<Vote> findByUserIdAndQuoteId(UUID userId, UUID quoteId);
-
-  boolean existsByUserIdAndQuoteId(UUID userId, UUID quoteId);
-
-  void deleteByUserIdAndQuoteId(UUID userId, UUID quoteId);
 }

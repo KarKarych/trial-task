@@ -1,6 +1,7 @@
 package com.example.kameleoon.service.logic.impl;
 
 import com.example.kameleoon.persistence.entity.Vote;
+import com.example.kameleoon.persistence.entity.VoteId;
 import com.example.kameleoon.persistence.repository.VoteRepository;
 import com.example.kameleoon.service.exception.ApiException;
 import com.example.kameleoon.service.logic.VoteService;
@@ -22,7 +23,7 @@ public class VoteServiceImpl implements VoteService {
 
   @Override
   public void addVote(UUID userId, UUID quoteId, VoteDto voteDto) {
-    Optional<Vote> foundVote = voteRepository.findByUserIdAndQuoteId(userId, quoteId);
+    Optional<Vote> foundVote = voteRepository.findById(new VoteId(userId, quoteId));
     if (foundVote.isEmpty()) {
       Vote vote = Vote.builder()
         .vote(voteDto.vote())
@@ -37,15 +38,16 @@ public class VoteServiceImpl implements VoteService {
 
   @Override
   public void editVote(UUID userId, UUID quoteId, VoteDto voteDto) {
-    voteRepository.findByUserIdAndQuoteId(userId, quoteId)
+    voteRepository.findById(new VoteId(userId, quoteId))
       .map(v -> v.setVote(voteDto.vote()))
+      .map(voteRepository::save)
       .orElseThrow(() -> new ApiException("vote not found", HttpStatus.NOT_FOUND));
   }
 
   @Override
   public void removeVote(UUID userId, UUID quoteId) {
-    if (voteRepository.existsByUserIdAndQuoteId(userId, quoteId)) {
-      voteRepository.deleteByUserIdAndQuoteId(userId, quoteId);
+    if (voteRepository.existsById(new VoteId(userId, quoteId))) {
+      voteRepository.deleteById(new VoteId(userId, quoteId));
     } else {
       throw new ApiException("vote not found", HttpStatus.NOT_FOUND);
     }

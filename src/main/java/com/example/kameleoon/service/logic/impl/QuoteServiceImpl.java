@@ -1,6 +1,7 @@
 package com.example.kameleoon.service.logic.impl;
 
 import com.example.kameleoon.persistence.entity.Quote;
+import com.example.kameleoon.persistence.entity.QuoteView;
 import com.example.kameleoon.persistence.repository.QuoteRepository;
 import com.example.kameleoon.persistence.repository.QuoteViewRepository;
 import com.example.kameleoon.persistence.repository.UserRepository;
@@ -104,18 +105,20 @@ public class QuoteServiceImpl implements QuoteService {
 
   @Override
   public QuoteDto updateQuote(UUID userId, UUID quoteId, QuoteInputDto quoteInputDto) {
-    Quote quoteToUpdate = Quote.builder()
-      .id(quoteId)
-      .user(userRepository.getReferenceById(userId))
-      .content(quoteInputDto.content())
-      .build();
+    Optional<Quote> fromDbToUpdate = quoteRepository.findById(quoteId);
+    if (fromDbToUpdate.isPresent()) {
+      Quote quoteToUpdate = fromDbToUpdate.get();
+      quoteToUpdate.setContent(quoteInputDto.content());
 
-    Quote updatedQuote = quoteRepository.save(quoteToUpdate);
+      quoteRepository.save(quoteToUpdate);
 
-    return Optional.of(updatedQuote.getId())
-      .flatMap(quoteViewRepository::findById)
-      .map(quoteMapper::toQuoteDto)
-      .orElseThrow(() -> new ApiException("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR));
+      Optional<QuoteView> fromDbToReturn = quoteViewRepository.findById(quoteId);
+      if (fromDbToReturn.isPresent()) {
+        return quoteMapper.toQuoteDto(fromDbToReturn.get());
+      }
+    }
+
+    throw new ApiException("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   @Override

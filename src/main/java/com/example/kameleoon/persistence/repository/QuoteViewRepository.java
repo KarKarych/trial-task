@@ -21,7 +21,7 @@ public interface QuoteViewRepository extends JpaRepository<QuoteView, UUID> {
 
   @Query(value = """
     from   QuoteView qv
-    order by qv.upvoteCount + qv.downvoteCount desc,
+    order by qv.upvoteCount - qv.downvoteCount desc,
              qv.creationDate desc
     limit 10
     """)
@@ -29,7 +29,7 @@ public interface QuoteViewRepository extends JpaRepository<QuoteView, UUID> {
 
   @Query(value = """
     from   QuoteView qv
-    order by qv.upvoteCount + qv.downvoteCount,
+    order by qv.upvoteCount - qv.downvoteCount,
              qv.creationDate desc
     limit 10
     """)

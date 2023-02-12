@@ -25,7 +25,7 @@ public class QuoteBase extends BaseEntity {
   @Column(name = "id", nullable = false)
   private UUID id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
